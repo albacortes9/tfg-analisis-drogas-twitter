@@ -27,3 +27,6 @@ __pycache__/
 # Carpeta de resultados o salidas temporales
 outputs/
 results/
+
+# Carpeta de archivos compilados de ejecución de Python
+__pycache__/
