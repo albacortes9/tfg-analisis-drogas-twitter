@@ -22,7 +22,7 @@ def insertar_references(data):
     def recorrer_referencia(hijo_id, ref_data):
         padre_info = ref_data[0].get("id")
         tipo = ref_data[0].get("type")
-        nonlocal author_id, reply_user_id, batch_ref, batch_tweet, batch_padres
+        nonlocal author_id, reply_user_id, batch_ref, batch_tweet, batch_padres, batch_user
 
         if isinstance(padre_info, dict): # Si el id del padre es un dict es porque hay otro tweet padre
             padre_id = padre_info.get("id")
@@ -31,6 +31,15 @@ def insertar_references(data):
             batch_padres.append(padre_info)
 
             author_id = int(padre_info.get("author_id"))
+            if tipo == "quoted":
+                batch_user.append((author_id, None, None, None, None, None, 0, 0, 0, 0))
+                cursor.executemany("""
+                    INSERT IGNORE INTO user (id, name, username, location, verified, profile_image_url, 
+                                            followers_count, following_count, tweet_count, listed_count)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", batch_user)
+                conn.commit()
+                batch_user = []  
+
             if padre_info.get("referenced_tweets"):         # se guarda el author_id del tweet padre que aparece en in_reply_to_user_id porque en el padre no aparece
                 reply_user_id = padre_info.get("in_reply_to_user_id", None)
                 if reply_user_id:
@@ -50,17 +59,26 @@ def insertar_references(data):
                 recorrer_referencia(padre_id, padre_ref) # Se vuelve a llamar recursivamente
 
         elif isinstance(padre_info, str): # Si el id del padre es un str entonces ese es el padre maximo
-            padre_id = padre_info
+            padre_id = int(padre_info)
 
             batch_tweet.append((padre_id, None, reply_user_id, None, None))
+            batch_user.append((reply_user_id, None, None, None, None, None, 0, 0, 0, 0))
+
+            # if len(batch_user) >= batch_size:
+            cursor.executemany("""
+                    INSERT IGNORE INTO user (id, name, username, location, verified, profile_image_url, 
+                                            followers_count, following_count, tweet_count, listed_count)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", batch_user)
+            conn.commit()
+            batch_user = []   
 
             # Insertar el id del padre en tweet aunque solo tengamos ese dato y el author_id (hay veces que no esta)
-            if len(batch_tweet) >= batch_size:
-                cursor.executemany("""
-                    INSERT IGNORE INTO tweet (id, text, author_id, created_at, media)
-                    VALUES (%s, %s, %s, %s, %s)""", batch_tweet)
-                conn.commit()
-                batch_tweet = []
+            # if len(batch_tweet) >= batch_size:
+            cursor.executemany("""
+                INSERT IGNORE INTO tweet (id, text, author_id, created_at, media)
+                VALUES (%s, %s, %s, %s, %s)""", batch_tweet)
+            conn.commit()
+            batch_tweet = []
 
             # Insertar en tweet_references
             batch_ref.append((hijo_id, padre_id, tipo))        

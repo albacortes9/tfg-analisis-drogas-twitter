@@ -22,6 +22,6 @@ def cargar_archivo_json(ruta_archivo):
 # Obtener lista de archivos .json en carpeta "data"
 
 def obtener_archivos_json():
-    base_dir = os.path.join(os.path.dirname(__file__))
+    base_dir = os.path.join(os.path.dirname(__file__),'..', '..')
     raw_data_path = os.path.join(base_dir, 'data', 'raw')
     return [os.path.join(raw_data_path, archivo) for archivo in os.listdir(raw_data_path) if archivo.endswith('.json')]

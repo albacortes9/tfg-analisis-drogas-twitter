@@ -152,6 +152,36 @@ CREATE TABLE IF NOT EXISTS `twitter_analysis`.`ubication` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `twitter_analysis`.`slang` (
+  `id` INT NOT NULL,
+  `concept` VARCHAR(255) NULL,
+  `annotation` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `twitter_analysis`.`metamap` (
+  `id` INT NOT NULL,
+  `abbreviation` VARCHAR(255) NULL,
+  `description` VARCHAR(255) NULL,
+  `matched_words` VARCHAR(255) NULL,
+  `annotation` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `twitter_analysis`.`tweet_slang` (
+  `tweet_id` bigint NOT NULL,
+  `slang_id` INT NOT NULL,
+	PRIMARY KEY (`tweet_id`, `slang_id`),
+    FOREIGN KEY (`tweet_id`)
+    REFERENCES `twitter_analysis`.`tweet` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+    FOREIGN KEY (`slang_id`)
+    REFERENCES `twitter_analysis`.`slang` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

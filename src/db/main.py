@@ -12,12 +12,12 @@ def main():
     for archivo in archivos:
         print(f"Procesando archivo: {archivo}")
         data = cargar_archivo_json(archivo)
-        insertar_user(data)
-        insertar_tweet(data)
-        insertar_metrics(data)
-        insertar_ubication(data)
-        insertar_mention(data)
-        insertar_tweet_keywords(data)
+        # insertar_user(data)
+        # insertar_tweet(data)
+        # insertar_metrics(data)
+        # insertar_ubication(data)
+        # insertar_mention(data)
+        # insertar_tweet_keywords(data)
         insertar_references(data)
         print(f"Archivo {archivo} procesado.\n")
 
