@@ -1,4 +1,4 @@
-Análisis del Consumo Recreativo de Drogas en Publicaciones de Twitter
+Análisis de los Efectos del Consumo Recreativo de Drogas en Publicaciones de Twitter
 =====================================================================
 
 Este proyecto forma parte de mi Trabajo de Fin de Grado y tiene como objetivo analizar el uso y mención de drogas en publicaciones de Twitter a lo largo de varios años.
