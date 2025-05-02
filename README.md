@@ -25,7 +25,7 @@ TFG/
 │       └── utils.py                      # Lee los datos de los archivos.json
 ├── requirements.txt
 ├── .gitignore
-└── README.txt
+└── README.md
 ```
 
 Requisitos
