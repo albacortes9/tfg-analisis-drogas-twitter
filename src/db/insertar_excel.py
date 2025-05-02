@@ -28,4 +28,4 @@ df_keywords.to_sql(name='drug_keyword', con=engine, if_exists='append', index=Fa
 df_slang.to_sql(name='slang', con=engine, if_exists='append', index=False)
 df_metamap.to_sql(name='metamap', con=engine, if_exists='append', index=False)
 
-print("Datos insertados correctamente en las tablas 'drug','drug_keyword', 'slang' y 'metamap'")
+print("Datos insertados correctamente en las tablas 'drug', 'drug_keyword', 'slang' y 'metamap'")
