@@ -24,7 +24,8 @@ TFG/
 │       ├── main.py                       # Inserta datos a partir de archivos .json
 │       └── utils.py                      # Lee los datos de los archivos.json
 ├── requirements.txt
-└── README.txt
+├── .gitignore
+└── README.md
 ```
 
 Requisitos
