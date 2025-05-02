@@ -1,0 +1,29 @@
+# Archivos de datos grandes
+data/raw/*.json
+
+# Archivos Excel temporales
+*.xlsx
+*.xls
+
+# Entornos virtuales
+venv/
+.env/
+__pycache__/
+*.pyc
+
+# Archivos de Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Archivos de configuración del sistema o editores
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Carpeta de resultados o salidas temporales
+outputs/
+results/
