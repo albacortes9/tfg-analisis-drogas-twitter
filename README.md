@@ -5,7 +5,7 @@ Este proyecto forma parte de mi Trabajo de Fin de Grado y tiene como objetivo an
 
 Estructura del Proyecto
 ------------------------
-
+```
 TFG/
 ├── data/
 │   └── raw/                     # Archivos JSON con tweets (no incluidos en el repo por tamaño)
@@ -25,6 +25,7 @@ TFG/
 │       └── utils.py                      # Lee los datos de los archivos.json
 ├── requirements.txt
 └── README.txt
+```
 
 Requisitos
 ----------
