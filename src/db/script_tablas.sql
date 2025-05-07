@@ -155,7 +155,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `twitter_analysis`.`slang` (
   `id` INT NOT NULL,
   `concept` VARCHAR(255) NULL,
-  `annotation` VARCHAR(255) NULL,
+  `annotation1` VARCHAR(10) NULL,
+  `annotation2` VARCHAR(10) NULL,
+  `annotation3` VARCHAR(10) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
