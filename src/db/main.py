@@ -7,6 +7,8 @@ from insertar_mention import insertar_mention
 from insertar_tweet_keyword import insertar_tweet_keywords
 from insertar_references import insertar_references
 from insertar_tweet_slang import insertar_tweet_slang
+from insertar_tweet_metamap import insertar_tweet_metamap
+from insertar_metamap import insertar_metamap
 
 def main():
     archivos = obtener_archivos_json()
@@ -21,6 +23,8 @@ def main():
         insertar_tweet_keywords(data)
         insertar_references(data)
         insertar_tweet_slang(data)
+        insertar_tweet_metamap()
+        insertar_metamap()
         print(f"Archivo {archivo} procesado.\n")
 
 if __name__ == '__main__':

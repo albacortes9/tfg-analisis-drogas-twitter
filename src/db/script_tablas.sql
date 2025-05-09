@@ -162,12 +162,44 @@ CREATE TABLE IF NOT EXISTS `twitter_analysis`.`slang` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `twitter_analysis`.`metamap` (
-  `id` INT NOT NULL,
-  `abbreviation` VARCHAR(255) NULL,
-  `description` VARCHAR(255) NULL,
-  `matched_words` VARCHAR(255) NULL,
-  `annotation` VARCHAR(255) NULL,
-  PRIMARY KEY (`id`))
+  `cui` CHAR(8) NOT NULL,
+  `term` VARCHAR(255) NULL,
+  `tui` CHAR(4) NULL,
+  `annotation1` VARCHAR(10) NULL,
+  `annotation2` VARCHAR(10) NULL,
+  `annotation3` VARCHAR(10) NULL,
+  PRIMARY KEY (`cui`),
+   FOREIGN KEY (`tui`)
+    REFERENCES `twitter_analysis`.`semantic_type` (`tui`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `twitter_analysis`.`semantic_type` (
+  `tui` CHAR(4) NOT NULL,
+  `abbreviation` CHAR(4) NULL,
+  `description` VARCHAR(50) NULL,
+  `annotation` VARCHAR(45) NULL,
+  PRIMARY KEY (`tui`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `twitter_analysis`.`tweet_metamap` (
+  `tweet_id` BIGINT(20) NOT NULL,
+  `cui` CHAR(8) NOT NULL,
+  `tui`CHAR(4) NOT NULL,
+  `matched_words` TEXT NULL,
+  `positional_info` TEXT NULL,
+  PRIMARY KEY (`cui`, `tweet_id`, `tui`),
+    FOREIGN KEY (`tweet_id`)
+      REFERENCES `twitter_analysis`.`tweet` (`id`)
+      ON DELETE RESTRICT
+      ON UPDATE CASCADE,
+    FOREIGN KEY (`cui`)
+      REFERENCES `twitter_analysis`.`metamap` (`cui`)
+      ON DELETE RESTRICT
+      ON UPDATE CASCADE,
+	FOREIGN KEY (`tui`)
+	  REFERENCES `twitter_analysis`.`semantic_type` (`tui`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `twitter_analysis`.`tweet_slang` (
