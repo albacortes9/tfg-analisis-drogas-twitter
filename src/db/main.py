@@ -23,8 +23,8 @@ def main():
         insertar_tweet_keywords(data)
         insertar_references(data)
         insertar_tweet_slang(data)
-        insertar_tweet_metamap()
         insertar_metamap()
+        insertar_tweet_metamap()
         print(f"Archivo {archivo} procesado.\n")
 
 if __name__ == '__main__':
