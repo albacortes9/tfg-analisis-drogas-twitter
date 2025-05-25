@@ -14,7 +14,7 @@ excel_path = os.path.join(base_dir, 'data', 'raw', 'Drugs.xlsx')
 df_metamap = pd.read_excel(excel_path, sheet_name="metamap")
 df_slang = pd.read_excel(excel_path, sheet_name="slang")
 
-# Crear dataframes para aplicar fleiss kappa
+# Crear dataframes
 df_metamap_fk = pd.DataFrame(columns=['term', 'positivo', 'negativo', 'contexto'])
 df_slang_fk = pd.DataFrame(columns=['slang', 'positivo', 'negativo', 'contexto'])
 df_metamap_fk['term'] = df_metamap['term']

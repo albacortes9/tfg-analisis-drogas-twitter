@@ -94,7 +94,7 @@ classification = final_df.iloc[:, -1]
 # Aplicar la estandarización solo a las características
 final_df.iloc[:, :-1] = scaler.fit_transform(features).astype('float64')
 
-# Volver a unir la columna de clasificación (ya está en su sitio)
+# Volver a unir la columna de clasificación (ya está en su sitio)-ñlk
 
 print("\nLos datos han sido estandarizados.")
 
