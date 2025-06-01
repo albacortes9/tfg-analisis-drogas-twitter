@@ -8,10 +8,15 @@ Este proyecto forma parte de mi Trabajo de Fin de Grado y tiene como objetivo an
 TFG/
 ├── data/
 │   └── raw/                                          # Archivos JSON con tweets (no incluidos en el repo por tamaño)
-│        └── Drugs.xlsx                               # Excel con información de drogas y palabras clave
+│        └── Drugs.xlsx                               # Excel con información de drogas, palabras clave, slang, metamap y anotaciones
 │   └── processed/                                    # Archivos procesados
-│        ├── dataset_final.xlsx                       # Excel con los datos a utilizar en el modelo
-|        └── dataset_final_vectorizado.xlsx           # Excel con los datos vectorizados a utilizar en el modelo
+│        ├── dataset_final.xlsx                       # Dataset final
+│        ├── dataset_final_vectorizado.xlsx           # Dataset final vectorizado y normalizado
+│        └── matriz_correlacion.xlsx                  # Matriz de correlación
+├── notebook/                                         # Notebooks de Jupyter para análisis y experimentación
+│   ├── analisis_descriptivo.ipynb                 # Análisis descriptivo de los datos
+│   ├── analisis_metamap_slang.ipynb               # Análisis de MetaMap y Slang
+│   └── analisis_modelo.ipynb                      # Entrenamiento y evaluación de modelos
 ├── src/
 │   └── db/
 │       ├── script_tablas.sql             # Script SQL para crear tablas
@@ -32,13 +37,16 @@ TFG/
 │       ├── annotation_tweet_slang.py     # Agreement de tweet slang
 │       ├── final_annotation.py           # Agreement de metamap y slang
 │       ├── main.py                       # Inserta datos a partir de archivos .json
-│       └── utils.py                      # Lee los datos de los archivos.json
+│       └── utils.py                      # Lee los datos de los archivos .json
 │   └── modelo/
-│       ├── crear_dataset.py                   # Crear el dataset final
-│       ├── preprocesado.py                    # Preprocesar el dataset final
-│       ├── correlation.py                    # Preprocesar el dataset final
-│       └── entrenamiento.py
-├── results/
+│       ├── crear_dataset.py                 # Crear el dataset final
+│       ├── preprocesado.py                  # Preprocesar el dataset final
+│       ├── correlation.py                   # Calcula la matriz de correlacion del dataset
+│       ├── cost-sensitive.py                # Entrenamiento con enfoque cost-sensitive
+│       ├── oversampling_in.py               # Oversampling antes de la validación cruzada
+│       ├── oversampling_out.py              # Oversampling durante la validación cruzada
+│       └── sin_oversampling.py              # Entrenamiento sin oversampling
+├── results/                                 # Carpeta donde se guardan todas las gráficas generadas
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -57,12 +65,20 @@ Instala los requisitos con:
 3. Corre `src/db/insertar_excel.py` para insertar los datos del Excel.
 4. Usa `src/db/main.py` para cargar el resto de los datos desde archivos JSON.
 5. Para el procesamiento y análisis de datos:
-   - `src/modelo/final_annotation.py`: Evalúa el acuerdo final de cada término de MetaMap y Slang.
-   - `src/modelo/annotation_tweet_metamap.py`: Evalúa el acuerdo final de MetaMap por tweet.
-   - `src/modelo/annotation_tweet_slang.py`: Evalúa el acuerdo final de slang por tweet.
-   - `src/modelo/tweet_annotation.py`: Evalúa el acuerdo entre slang y MetaMap por tweet.
+   - `src/db/final_annotation.py`: Evalúa el acuerdo final de cada término de MetaMap y Slang.
+   - `src/db/annotation_tweet_metamap.py`: Evalúa el acuerdo final de MetaMap por tweet.
+   - `src/db/annotation_tweet_slang.py`: Evalúa el acuerdo final de slang por tweet.
+   - `src/db/tweet_annotation.py`: Evalúa el acuerdo entre slang y MetaMap por tweet.
+6. Para entrenar el modelo:
    - `src/modelo/crear_dataset.py`: Genera el dataset final a partir de los datos procesados.
    - `src/modelo/preprocesado.py`: Realiza el preprocesamiento del dataset.
+   - `src/modelo/correlation.py`: Analiza la correlación entre variables del dataset.
+   - Ejecuta uno de los siguientes scripts según el enfoque de entrenamiento que desees utilizar:
+     - `src/modelo/cost-sensitive.py`: Entrena el modelo usando un enfoque cost-sensitive.
+     - `src/modelo/oversampling_in.py`: Entrena el modelo aplicando oversampling en la fase previa a cross-validation.
+     - `src/modelo/oversampling_out.py`: Entrena el modelo aplicando oversampling en la fase de cross-validation.
+     - `src/modelo/sin_oversampling.py`: Entrena el modelo sin aplicar oversampling.
+   - Revisa los resultados y métricas generados tras el entrenamiento en la carpeta `results/`.
 
 Consulta los comentarios en cada script para más detalles sobre su uso.
 
